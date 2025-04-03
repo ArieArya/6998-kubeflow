@@ -5,6 +5,7 @@
 
 import os
 import re
+import json
 import PIL
 import torch
 import torchvision
@@ -15,6 +16,8 @@ from torch.nn import CrossEntropyLoss
 from torch.utils.data import Dataset, DataLoader
 from torchvision.models import ResNet18_Weights
 from torchvision import transforms
+from google.cloud import storage
+from google.oauth2 import service_account
 
 # Define device for training
 if torch.cuda.is_available():
@@ -141,8 +144,6 @@ for i, token in enumerate(tokens):
     id_to_word[i+3] = token
     word_to_id[token] = i+3
 
-# TODO: Need to save this to be used during deployment, probably to gcloud
-
 # Create a Caption and Image Dataset
 MAX_LEN = 40
 
@@ -262,3 +263,28 @@ for i in range(num_epochs):
     train()
 
 # TODO: save the model (in gcloud)
+
+#########################
+### 6. Save the model ###
+#########################
+def upload_to_gcs(bucket_name, source_file_name, destination_blob_name, key_file='gcp-key.json'):
+    credentials = service_account.Credentials.from_service_account_file(key_file)
+    storage_client = storage.Client(credentials=credentials, project=credentials.project_id)
+    bucket = storage_client.bucket(bucket_name)
+    blob = bucket.blob(destination_blob_name)
+    blob.upload_from_filename(source_file_name)
+    print(f"File {source_file_name} uploaded to gs://{bucket_name}/{destination_blob_name}.")
+
+bucket_name = 'coms_6998_applied_ml'
+model_file = 'image-captioning-model.pt'
+torch.save(model, model_file)
+destination_blob_name = f'models/{model_file}'
+upload_to_gcs(bucket_name, model_file, destination_blob_name)
+
+# Also save the id_to_word and word_to_id maps to GCP
+with open('id_to_word.json', 'w') as f:
+    json.dump(id_to_word, f)
+with open('word_to_id.json', 'w') as f:
+    json.dump(word_to_id, f)
+upload_to_gcs(bucket_name, 'id_to_word.json', 'models/id_to_word.json')
+upload_to_gcs(bucket_name, 'word_to_id.json', 'models/word_to_id.json')
