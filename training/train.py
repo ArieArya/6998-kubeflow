@@ -24,22 +24,18 @@ elif torch.mps.is_available():
 else:
     DEVICE = 'cpu'
     print("You won't be able to train the RNN decoder on a CPU, unfortunately.")
-print(f"DEVICE: DEVICE")
+print(f"DEVICE: {DEVICE}")
 
 
 #################################
 ### 1. Download training data ###
 #################################
-# url = "https://storage.googleapis.com/4705_sp25_hw3/hw3data.zip"
-# zip_filename = "hw3data.zip"
-# destination_dir = "hw3data"
-# urllib.request.urlretrieve(url, zip_filename)
-# if not os.path.exists(destination_dir):
-#     os.makedirs(destination_dir)
-#     print(f"Created directory: {destination_dir}")
-# with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
-#     zip_ref.extractall(destination_dir)
-# os.remove(zip_filename)
+url = "https://storage.googleapis.com/4705_sp25_hw3/hw3data.zip"
+zip_filename = "hw3data.zip"
+urllib.request.urlretrieve(url, zip_filename)
+with zipfile.ZipFile(zip_filename, 'r') as zip_ref:
+    zip_ref.extractall('.')
+os.remove(zip_filename)
 
 
 ##############################
@@ -49,15 +45,27 @@ def load_image_list(filename):
     with open(filename,'r') as image_list_f:
         return [line.strip() for line in image_list_f]
 
-MY_DATA_DIR="hw3data"
-FLICKR_PATH="hw3data/"
+script_dir = os.path.dirname(os.path.abspath(__file__))
+MY_DATA_DIR = "hw3data"
+FLICKR_PATH = "hw3data/"
 train_list = load_image_list(os.path.join(FLICKR_PATH, 'Flickr_8k.trainImages.txt'))
 dev_list = load_image_list(os.path.join(FLICKR_PATH,'Flickr_8k.devImages.txt'))
 test_list = load_image_list(os.path.join(FLICKR_PATH,'Flickr_8k.testImages.txt'))
 
+# Preprocess the image
+preprocess = transforms.Compose([
+    transforms.Resize(256),
+    transforms.CenterCrop(224),
+    transforms.ToTensor(),
+    transforms.Normalize(mean=[0.485, 0.456, 0.406], std=[0.229, 0.224, 0.225])
+])
+
 # Use the ResNet-18 Image Encoder
 img_encoder = torchvision.models.resnet18(weights=ResNet18_Weights.DEFAULT)
+lastremoved = list(img_encoder.children())[:-1]
+img_encoder = torch.nn.Sequential(*lastremoved).to(DEVICE)
 
+IMG_PATH = os.path.join(FLICKR_PATH, "Flickr8k_Dataset")
 def get_image(img_name):
     image = PIL.Image.open(os.path.join(IMG_PATH, img_name))
     return preprocess(image)
@@ -68,10 +76,10 @@ def encode_images(image_list, batch_size=256):
         print(f"images processed: {i+1}/{len(image_list)}")
         images = [get_image(img) for img in image_list[i:i+batch_size]]
         images = torch.stack(images, dim=0).to(DEVICE)
-    with torch.no_grad():
-        embeddings = img_encoder(images).squeeze(dim=(-1, -2))
-        result.append(embeddings.cpu())
-        result = torch.cat(result, dim=0)  # unroll batch embeddings
+        with torch.no_grad():
+            embeddings = img_encoder(images).squeeze(dim=(-1, -2))
+            result.append(embeddings.cpu())
+    result = torch.cat(result, dim=0)  # unroll batch embeddings
     return result
 
 # Encode the training images
@@ -105,6 +113,8 @@ def read_image_descriptions(filename):
             else:
                 print(f"Error matching line with expected format. Line: {line}")
     return image_descriptions
+
+descriptions = read_image_descriptions(os.path.join(FLICKR_PATH, "Flickr8k.token.txt"))
 
 # Create word indices
 id_to_word = {}
@@ -250,3 +260,5 @@ num_epochs = 5
 for i in range(num_epochs):
     print(f"Epoch: {i+1}/{num_epochs}")
     train()
+
+# TODO: save the model (in gcloud)

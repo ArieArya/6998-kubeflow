@@ -1,3 +1,3 @@
-./env
-./training/hw3data/*
-./training/hw3data.zip
+env/
+hw3data/
+hw3data.zip
