@@ -11,9 +11,9 @@ spec:
             template:
                 spec:
                     containers:
-                        - name: training
-                          image: ariearya/cnn-captioning-image:latest
-                          # imagePullPolicy: Always  # add this if you modified the code
+                        - name: pytorch
+                          image: ariearya/cnn-captioning-image-training:v2
+                          imagePullPolicy: Always
                           command:
                               - "python"
                               - "train.py"

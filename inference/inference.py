@@ -11,7 +11,6 @@ from google.oauth2 import service_account
 app = Flask(__name__)
 
 # Configuration
-GCP_KEY_FILE = './gcp-key.json'
 BUCKET_NAME = 'coms_6998_applied_ml'
 MODEL_BLOB = 'models/image-captioning-model.pt'
 ID_TO_WORD_BLOB = 'models/id_to_word.json'
@@ -21,9 +20,8 @@ LOCAL_ID_TO_WORD = '/tmp/id_to_word.json'
 LOCAL_WORD_TO_ID = '/tmp/word_to_id.json'
 
 # Download helper from GCS
-def download_from_gcs(bucket_name, blob_name, local_path, key_file=GCP_KEY_FILE):
-    credentials = service_account.Credentials.from_service_account_file(key_file)
-    storage_client = storage.Client(credentials=credentials, project=credentials.project_id)
+def download_from_gcs(bucket_name, blob_name, local_path):
+    storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(blob_name)
     blob.download_to_filename(local_path)

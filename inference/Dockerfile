@@ -1,4 +1,4 @@
-# Use an official Python runtime
+# Use an official Python runtime - lighter weight (for inference)
 FROM --platform=linux/amd64 python:3.13-slim AS build
 
 # Set the working directory inside the container
@@ -6,10 +6,9 @@ WORKDIR /app
 
 # Copy the requirements file and install dependencies
 COPY ./requirements.txt .
-COPY ./gcp-key.json .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy the inference script and the service account key file (make sure to handle this securely)
+# Copy the inference script
 COPY ./inference/inference.py .
 
 # Expose the port the app runs on

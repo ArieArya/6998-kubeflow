@@ -1,16 +1,15 @@
-# Use an official Python runtime
-FROM --platform=linux/amd64 python:3.13-slim AS build
+# Use an official Pytorch runtime
+FROM --platform=linux/amd64 pytorch/pytorch:2.6.0-cuda12.6-cudnn9-runtime AS build
 
 # Set the working directory inside the container
 WORKDIR /app
 
 # Copy the requirements file and install dependencies
 COPY ./requirements.txt .
-COPY ./gcp-key.json .
 RUN pip install --no-cache-dir -r requirements.txt
 
-# Copy your training script and any additional files you need
+# Copy the training script
 COPY training/train.py .
 
-# Define the command to run your training script
+# Command for training
 CMD ["python", "train.py"]

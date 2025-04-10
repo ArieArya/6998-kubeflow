@@ -265,9 +265,8 @@ for i in range(num_epochs):
 #########################
 ### 6. Save the model ###
 #########################
-def upload_to_gcs(bucket_name, source_file_name, destination_blob_name, key_file):
-    credentials = service_account.Credentials.from_service_account_file(key_file)
-    storage_client = storage.Client(credentials=credentials, project=credentials.project_id)
+def upload_to_gcs(bucket_name, source_file_name, destination_blob_name):
+    storage_client = storage.Client()
     bucket = storage_client.bucket(bucket_name)
     blob = bucket.blob(destination_blob_name)
     blob.upload_from_filename(source_file_name)
@@ -275,15 +274,14 @@ def upload_to_gcs(bucket_name, source_file_name, destination_blob_name, key_file
 
 MODEL_FILE = 'image-captioning-model.pt'
 MODEL_BLOB = f'models/{MODEL_FILE}'
-GCP_KEY_FILE = './gcp-key.json'
 BUCKET_NAME = 'coms_6998_applied_ml'
 torch.save(model, MODEL_FILE)
-upload_to_gcs(BUCKET_NAME, MODEL_FILE, MODEL_BLOB, GCP_KEY_FILE)
+upload_to_gcs(BUCKET_NAME, MODEL_FILE, MODEL_BLOB)
 
 # Also save the id_to_word and word_to_id maps to GCP
 with open('id_to_word.json', 'w') as f:
     json.dump(id_to_word, f)
 with open('word_to_id.json', 'w') as f:
     json.dump(word_to_id, f)
-upload_to_gcs(BUCKET_NAME, 'id_to_word.json', 'models/id_to_word.json', GCP_KEY_FILE)
-upload_to_gcs(BUCKET_NAME, 'word_to_id.json', 'models/word_to_id.json', GCP_KEY_FILE)
+upload_to_gcs(BUCKET_NAME, 'id_to_word.json', 'models/id_to_word.json')
+upload_to_gcs(BUCKET_NAME, 'word_to_id.json', 'models/word_to_id.json')

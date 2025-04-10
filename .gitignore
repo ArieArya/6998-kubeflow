@@ -1,7 +1,6 @@
 env/
 hw3data/
 hw3data.zip
-gcp-key.json
 *.pt
 id_to_word.json
 word_to_id.json
