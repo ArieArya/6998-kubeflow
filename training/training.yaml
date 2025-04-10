@@ -1,0 +1,22 @@
+apiVersion: "kubeflow.org/v1"
+kind: PyTorchJob
+metadata:
+    name: cnn-captioning-training
+    namespace: kubeflow
+spec:
+    pytorchReplicaSpecs:
+        Master:
+            replicas: 1
+            restartPolicy: OnFailure
+            template:
+                spec:
+                    containers:
+                        - name: training
+                          image: ariearya/cnn-captioning-image:latest
+                          # imagePullPolicy: Always  # add this if you modified the code
+                          command:
+                              - "python"
+                              - "train.py"
+                          resources:
+                              limits:
+                                  nvidia.com/gpu: 1 # Request 1 GPU

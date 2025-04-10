@@ -257,17 +257,15 @@ def train():
     print(f"Average accuracy epoch: {epoch_accuracy:.2f}")
 
 # Train the model on 5 epochs
-num_epochs = 5
+num_epochs = 0
 for i in range(num_epochs):
     print(f"Epoch: {i+1}/{num_epochs}")
     train()
 
-# TODO: save the model (in gcloud)
-
 #########################
 ### 6. Save the model ###
 #########################
-def upload_to_gcs(bucket_name, source_file_name, destination_blob_name, key_file='gcp-key.json'):
+def upload_to_gcs(bucket_name, source_file_name, destination_blob_name, key_file):
     credentials = service_account.Credentials.from_service_account_file(key_file)
     storage_client = storage.Client(credentials=credentials, project=credentials.project_id)
     bucket = storage_client.bucket(bucket_name)
@@ -275,16 +273,17 @@ def upload_to_gcs(bucket_name, source_file_name, destination_blob_name, key_file
     blob.upload_from_filename(source_file_name)
     print(f"File {source_file_name} uploaded to gs://{bucket_name}/{destination_blob_name}.")
 
-bucket_name = 'coms_6998_applied_ml'
-model_file = 'image-captioning-model.pt'
-torch.save(model, model_file)
-destination_blob_name = f'models/{model_file}'
-upload_to_gcs(bucket_name, model_file, destination_blob_name)
+MODEL_FILE = 'image-captioning-model.pt'
+MODEL_BLOB = f'models/{MODEL_FILE}'
+GCP_KEY_FILE = './gcp-key.json'
+BUCKET_NAME = 'coms_6998_applied_ml'
+torch.save(model, MODEL_FILE)
+upload_to_gcs(BUCKET_NAME, MODEL_FILE, MODEL_BLOB, GCP_KEY_FILE)
 
 # Also save the id_to_word and word_to_id maps to GCP
 with open('id_to_word.json', 'w') as f:
     json.dump(id_to_word, f)
 with open('word_to_id.json', 'w') as f:
     json.dump(word_to_id, f)
-upload_to_gcs(bucket_name, 'id_to_word.json', 'models/id_to_word.json')
-upload_to_gcs(bucket_name, 'word_to_id.json', 'models/word_to_id.json')
+upload_to_gcs(BUCKET_NAME, 'id_to_word.json', 'models/id_to_word.json', GCP_KEY_FILE)
+upload_to_gcs(BUCKET_NAME, 'word_to_id.json', 'models/word_to_id.json', GCP_KEY_FILE)
