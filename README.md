@@ -20,5 +20,3 @@ For full details on building, deploying, and running both workflows, please refe
 
 -   [Inference README](./inference/README.md)
 -   [Training README](./training/README.md)
-
-For additional configuration details (Dockerfiles, Kubernetes YAML files, etc.), see the GitHub repository: [https://github.com/ArieArya/6998-kubeflow](INSERT_GITHUB_LINK_HERE)
