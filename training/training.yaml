@@ -10,9 +10,10 @@ spec:
             restartPolicy: OnFailure
             template:
                 spec:
+                    serviceAccountName: gcs-access # service account to write to GCS
                     containers:
                         - name: pytorch
-                          image: ariearya/cnn-captioning-image-training:v2
+                          image: ariearya/cnn-captioning-image-training:v8
                           imagePullPolicy: Always
                           command:
                               - "python"

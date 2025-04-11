@@ -257,7 +257,7 @@ def train():
     print(f"Average accuracy epoch: {epoch_accuracy:.2f}")
 
 # Train the model on 5 epochs
-num_epochs = 0
+num_epochs = 5
 for i in range(num_epochs):
     print(f"Epoch: {i+1}/{num_epochs}")
     train()
