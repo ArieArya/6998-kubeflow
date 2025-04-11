@@ -16,7 +16,7 @@ spec:
         spec:
             containers:
                 - name: cnn-captioning-inference
-                  image: ariearya/cnn-captioning-image-inference:v2
+                  image: ariearya/cnn-captioning-image-inference:v1
                   imagePullPolicy: Always
                   ports:
                       - containerPort: 8080

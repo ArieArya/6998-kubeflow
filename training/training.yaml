@@ -13,7 +13,7 @@ spec:
                     serviceAccountName: gcs-access # service account to write to GCS
                     containers:
                         - name: pytorch
-                          image: ariearya/cnn-captioning-image-training:v8
+                          image: ariearya/cnn-captioning-image-training:v1
                           imagePullPolicy: Always
                           command:
                               - "python"

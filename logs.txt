@@ -1,0 +1,196 @@
+kubectl logs -n kubeflow cnn-captioning-training-master-0
+DEVICE: cuda
+Downloading: "https://download.pytorch.org/models/resnet18-f37072fd.pth" to /root/.cache/torch/hub/checkpoints/resnet18-f37072fd.pth
+100%|██████████| 44.7M/44.7M [00:00<00:00, 159MB/s]
+images processed: 1/6000
+images processed: 257/6000
+images processed: 513/6000
+images processed: 769/6000
+images processed: 1025/6000
+images processed: 1281/6000
+images processed: 1537/6000
+images processed: 1793/6000
+images processed: 2049/6000
+images processed: 2305/6000
+images processed: 2561/6000
+images processed: 2817/6000
+images processed: 3073/6000
+images processed: 3329/6000
+images processed: 3585/6000
+images processed: 3841/6000
+images processed: 4097/6000
+images processed: 4353/6000
+images processed: 4609/6000
+images processed: 4865/6000
+images processed: 5121/6000
+images processed: 5377/6000
+images processed: 5633/6000
+images processed: 5889/6000
+Epoch: 1/5
+Current average loss: 9.118467330932617
+Current average loss: 4.770579713405949
+Current average loss: 4.280451881351755
+Current average loss: 4.010224549873326
+Current average loss: 3.8277116909883264
+Current average loss: 3.68913857713193
+Current average loss: 3.577743983705111
+Current average loss: 3.486301675842764
+Current average loss: 3.4058595891302446
+Current average loss: 3.334904647693782
+Current average loss: 3.27414955697455
+Current average loss: 3.217835165391068
+Current average loss: 3.166885549877208
+Current average loss: 3.1196073111344265
+Current average loss: 3.0746109854911245
+Current average loss: 3.0319072226537696
+Current average loss: 2.9911081554143597
+Current average loss: 2.9535702742386536
+Current average loss: 2.916487882959386
+Current average loss: 2.882187640021062
+Current average loss: 2.8485145099993527
+Current average loss: 2.8167524258900913
+Current average loss: 2.7862141879240743
+Current average loss: 2.756914523258151
+Current average loss: 2.7285285296414306
+Current average loss: 2.700788918088694
+Current average loss: 2.673932471031503
+Current average loss: 2.6474884599281743
+Current average loss: 2.6221757799078422
+Current average loss: 2.597320038258968
+Training loss epoch: 2.5749108735248147
+Average accuracy epoch: 0.44
+Epoch: 2/5
+Current average loss: 1.7909660339355469
+Current average loss: 1.7670305872907732
+Current average loss: 1.7562180324573422
+Current average loss: 1.7461171498726373
+Current average loss: 1.7337272000728998
+Current average loss: 1.7243867586710733
+Current average loss: 1.7130600390537407
+Current average loss: 1.7006012478500563
+Current average loss: 1.689406754669923
+Current average loss: 1.6786022199510073
+Current average loss: 1.6679191837063083
+Current average loss: 1.6582037171485964
+Current average loss: 1.6471358786812431
+Current average loss: 1.6363059299712361
+Current average loss: 1.6258142515219254
+Current average loss: 1.6141889194581287
+Current average loss: 1.6045838657727025
+Current average loss: 1.594803574644489
+Current average loss: 1.5843397184321113
+Current average loss: 1.5744458175470553
+Current average loss: 1.5645484313674118
+Current average loss: 1.5545767263705705
+Current average loss: 1.5449755012528672
+Current average loss: 1.5355767088317704
+Current average loss: 1.5259523581386059
+Current average loss: 1.5165644782107146
+Current average loss: 1.5072251119232325
+Current average loss: 1.4980938340592764
+Current average loss: 1.4889804956020094
+Current average loss: 1.4796708079709222
+Training loss epoch: 1.4712670112404231
+Average accuracy epoch: 0.62
+Epoch: 3/5
+Current average loss: 1.1353198289871216
+Current average loss: 1.1233261115480178
+Current average loss: 1.1169341268824107
+Current average loss: 1.110546653848946
+Current average loss: 1.1081668964942495
+Current average loss: 1.1038993580374652
+Current average loss: 1.0996178645460855
+Current average loss: 1.0934687218550438
+Current average loss: 1.0880177169108063
+Current average loss: 1.082686012249014
+Current average loss: 1.077879015858714
+Current average loss: 1.0727112837318504
+Current average loss: 1.0673937567266993
+Current average loss: 1.062631232568065
+Current average loss: 1.0575627924543376
+Current average loss: 1.05280023515423
+Current average loss: 1.0476765657200953
+Current average loss: 1.0423357990263211
+Current average loss: 1.0377611352760616
+Current average loss: 1.0325845175200798
+Current average loss: 1.0274171440795563
+Current average loss: 1.022555527574729
+Current average loss: 1.0173305578797256
+Current average loss: 1.012753135895843
+Current average loss: 1.0074182026885738
+Current average loss: 1.0024234418485796
+Current average loss: 0.9973124372688728
+Current average loss: 0.9922968904559853
+Current average loss: 0.9875971273795403
+Current average loss: 0.9829205279102082
+Training loss epoch: 0.9786117260104347
+Average accuracy epoch: 0.74
+Epoch: 4/5
+Current average loss: 0.8136827945709229
+Current average loss: 0.7772900249698375
+Current average loss: 0.7792197682371187
+Current average loss: 0.7747824502941778
+Current average loss: 0.7728375235103312
+Current average loss: 0.7721412780280122
+Current average loss: 0.7699472979578916
+Current average loss: 0.7670720383716207
+Current average loss: 0.7650105189741327
+Current average loss: 0.7627574318521693
+Current average loss: 0.7600214927346556
+Current average loss: 0.7571486762498965
+Current average loss: 0.7552016617654265
+Current average loss: 0.7522411100869908
+Current average loss: 0.749821026354156
+Current average loss: 0.7475011210930816
+Current average loss: 0.7452512729324303
+Current average loss: 0.7427271058600066
+Current average loss: 0.7398554632095812
+Current average loss: 0.7371610780253904
+Current average loss: 0.7342025813670351
+Current average loss: 0.731137789356771
+Current average loss: 0.7285271768459457
+Current average loss: 0.7257415801221938
+Current average loss: 0.7231827620316028
+Current average loss: 0.7206743795935605
+Current average loss: 0.7180208279645612
+Current average loss: 0.7152808370170043
+Current average loss: 0.7127637746333225
+Current average loss: 0.7100259487031452
+Training loss epoch: 0.7072193195051122
+Average accuracy epoch: 0.80
+Epoch: 5/5
+Current average loss: 0.599271833896637
+Current average loss: 0.5840487474262124
+Current average loss: 0.5811127078770405
+Current average loss: 0.5824651103281103
+Current average loss: 0.5828019691970283
+Current average loss: 0.582203790277778
+Current average loss: 0.581725610919086
+Current average loss: 0.5817389847038476
+Current average loss: 0.5806038357345352
+Current average loss: 0.579516508933839
+Current average loss: 0.5784330475223172
+Current average loss: 0.5772778667935883
+Current average loss: 0.5767870030236383
+Current average loss: 0.5756992990012173
+Current average loss: 0.5748272246118106
+Current average loss: 0.5739810947653932
+Current average loss: 0.573054008916495
+Current average loss: 0.5719333275986166
+Current average loss: 0.5707723720579396
+Current average loss: 0.5695127639282634
+Current average loss: 0.5676631873277114
+Current average loss: 0.5662631108498698
+Current average loss: 0.5653521233204006
+Current average loss: 0.5637947109174541
+Current average loss: 0.5623593010638268
+Current average loss: 0.5611712656489185
+Current average loss: 0.5598229422609607
+Current average loss: 0.5585061668775912
+Current average loss: 0.5568550930773093
+Current average loss: 0.555596697406496
+Training loss epoch: 0.5541286919221222
+Average accuracy epoch: 0.84
+File image-captioning-model.pt uploaded to gs://coms_6998_applied_ml/models/image-captioning-model.pt.
+File id_to_word.json uploaded to gs://coms_6998_applied_ml/models/id_to_word.json.
+File word_to_id.json uploaded to gs://coms_6998_applied_ml/models/word_to_id.json.
